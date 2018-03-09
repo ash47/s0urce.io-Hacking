@@ -61,4 +61,16 @@ $('#tool-type-word').on('keyup keypress keydown', function(e) {
     window.seenWords[stringNumber] = currentEntry;
 });
 
-setInterval(checkPwn, 1000);
+function exportBotMemory() {
+	var theMemory = JSON.stringify(window.seenWords);
+
+	console.log('To load bot memory, paste the following into the console:');
+	console.log('window.seenWords = ' + theMemory + ';');
+}
+
+// Send delay, in milliseconds
+// Adjust this if you are getting banned for cheating
+setInterval(checkPwn, 1000 * 2.5);
+
+// Tell the user how to use it
+console.log('Start typing words, eventually the bot will take over. You can type "exportBotMemory()" into the console without quotes to save your bot\'s current state.');
