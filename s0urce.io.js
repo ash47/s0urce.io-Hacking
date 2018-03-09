@@ -1,4 +1,25 @@
+// The delay, in milliseconds
+// 1000 milliseconds = 1 second
+var theDelay = 1000 * 1;
+
+function canPwn() {
+	if(window.lastPwnTime == null) return true;
+	var now = new Date();
+	var timeDifference = now - window.lastPwnTime;
+
+	// Ensure we have waited enough time
+	return timeDifference > theDelay;
+}
+
+function didPwn() {
+	// We did a pwn, update the internal time
+	window.lastPwnTime = new Date();
+}
+
 function checkPwn() {
+	// Prevent pwning too fast
+	if(!canPwn()) return;
+
     // ensure we have a store for seen values
     window.seenWords = window.seenWords || {};
 
@@ -24,6 +45,9 @@ function checkPwn() {
         $('#tool-type-word').val(possibleWord);
 
         $('#tool-type-form').submit();
+
+        // We did a pwn
+        didPwn()
 
         setTimeout(function() {
             $('#tool-type-word').val('');
@@ -59,6 +83,9 @@ $('#tool-type-word').on('keyup keypress keydown', function(e) {
 
     // Store the answer
     window.seenWords[stringNumber] = currentEntry;
+
+    // We did a pwn
+    didPwn();
 });
 
 function exportBotMemory() {
@@ -68,9 +95,8 @@ function exportBotMemory() {
 	console.log('window.seenWords = ' + theMemory + ';');
 }
 
-// Send delay, in milliseconds
-// Adjust this if you are getting banned for cheating
-setInterval(checkPwn, 1000 * 2.5);
+// Set an interval to check if we can pwn
+setInterval(checkPwn, 100);
 
 // Tell the user how to use it
 console.log('Start typing words, eventually the bot will take over. You can type "exportBotMemory()" into the console without quotes to save your bot\'s current state.');
