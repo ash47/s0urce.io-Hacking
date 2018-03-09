@@ -16,7 +16,7 @@ function didPwn() {
 	window.lastPwnTime = new Date();
 }
 
-function checkPwn() {
+function checkPwn(force) {
 	// Prevent pwning too fast
 	if(!canPwn()) return;
 
@@ -31,7 +31,7 @@ function checkPwn() {
 
     // Prevent incorrect spamming
     var lastWordChoice = window.lastWordChoice;
-    if(lastWordChoice == stringNumber) return;
+    if(lastWordChoice == stringNumber && !force) return;
     window.lastWordChoice = stringNumber;
 
     // see if we've seen this before
@@ -72,7 +72,7 @@ $('#tool-type-word').on('keyup keypress keydown', function(e) {
     // Did we type anything?
     if(currentEntry.length <= 0) {
         // Check if we should pwn
-        checkPwn();
+        checkPwn(true);
 
         e.preventDefault();
         return false;
