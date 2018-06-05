@@ -2,7 +2,7 @@
     // Check if we've already started the hook
     if(window.ash47_pwnHook == null) {
         // Reset the images we've seen
-        window.ash47_seenImages = {};
+        window.ash47_seenImages = window.ash47_seenImages || {};
 
         // Hook the image loading
         $('.tool-type-img').get()[0].onload = function() {
