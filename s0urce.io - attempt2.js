@@ -44,9 +44,16 @@
     };
 
     // Import brain
-    window.importBrain = function(newBrain) {
+    window.importBrain = function(newBrain, force) {
         try {
-            window.ash47_seenImages = JSON.parse(newBrain);
+            var newSeenImages = JSON.parse(newBrain);
+
+            for(var key in newSeenImages) {
+                if(force || !window.ash47_seenImages[key]) {
+                    window.ash47_seenImages[key] = newSeenImages[key];
+                }
+            }
+
             console.log('Brain successfullyy imported!');
         } catch(e) {
             console.log('Error importing brain!');
