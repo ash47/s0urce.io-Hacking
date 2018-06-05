@@ -40,7 +40,7 @@
 
     // Export brain
     window.exportBrain = function() {
-        console.log('window.importBrain("' + JSON.stringify(window.ash47_seenImages) + '");');
+        console.log('window.importBrain(\'' + JSON.stringify(window.ash47_seenImages) + '\');');
     };
 
     // Import brain
