@@ -36,7 +36,7 @@
 
     // The fastest we can push answers
     window.ash47_maxSubmitTime = 1000 * 1;
-    window.ash47_bonusDelay = 500;
+    window.ash47_bonusDelay = 100;
 
     // Export brain
     window.exportBrain = function() {
@@ -76,7 +76,7 @@
 
     // Checks if we are allowed to submit
     window.ash47_canSubmit = function() {
-        if(window.lastPwnTime == null) return true;
+        if(window.ash47_lastSubmission == null) return true;
         var now = new Date();
         var timeDifference = now - window.ash47_lastSubmission;
 
@@ -86,7 +86,7 @@
 
     // Returns how long left until we can do the next submit
     window.ash47_howLongLeft = function() {
-        if(window.lastPwnTime == null) return 0;
+        if(window.ash47_lastSubmission == null) return 0;
         var now = new Date();
         var timeDifference = now - window.ash47_lastSubmission;
 
