@@ -1,7 +1,7 @@
 # Scripts
 
 ## Auto hack people
- - The script contained in "s0urce.io" will auto hack people for you.
+ - The script contained in `s0urce.io - attempt<x>.js` will auto hack people for you.
  - copy the contents of the file into your clipboard.
  - open the website (s0urce.io) in your browser.
  - Press F12 to open the development console.
@@ -10,6 +10,6 @@
  - If the bot doesn't do anything, just help it by typing words, eventually the bot will take over once you've taught it enough words.
 
 ## Export your bot's memory and load it again
- - Type "exportBotMemory()" without quotes into the console to save your bot's current memory.
+ - Type `exportBrain()` without quotes into the console to save your bot's current memory.
  - It will give you a command to run next time after loading the script to reload your bot's memory.
  - Please keep in mind, the word file seem to be cycled a lot, which means your bot may need to be taught again if you come back after a long time.
