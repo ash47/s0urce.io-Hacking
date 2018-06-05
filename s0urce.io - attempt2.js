@@ -83,6 +83,19 @@
         return timeDifference > window.ash47_maxSubmitTime;
     };
 
+    // Returns how long left until we can do the next submit
+    window.ash47_howLongLeft = function() {
+        if(window.lastPwnTime == null) return 0;
+        var now = new Date();
+        var timeDifference = now - window.ash47_lastSubmission;
+
+        if(timeDifference > window.ash47_maxSubmitTime) {
+            return 0;
+        } else {
+            return timeDifference + 1;
+        }
+    };
+
     // Do a submission, IF WE ARE ALLOWED
     window.ash47_doSubmit = function() {
         // Are we allowed to submit?
@@ -92,6 +105,12 @@
 
             // Ensure we actually mark us as recently submitted
             window.ash47_didSubmit();
+        } else {
+            // Sleep until we are allowed to submit
+            setTimeout(function() {
+                // Do the submit
+                window.ash47_doSubmit();
+            }, window.ash47_howLongLeft());
         }
     };
 
@@ -108,9 +127,7 @@
             $('#tool-type-word').val(window.ash47_seenImages[stringNumber]);
 
             // Wait for the delay
-            setTimeout(function() {
-                window.ash47_doSubmit();
-            }, window.ash47_maxSubmitTime);
+            window.ash47_doSubmit();
             return;
         }
 
@@ -120,7 +137,7 @@
         // Try to read it
         Tesseract.recognize($('.tool-type-img').get()[0], {
             // Only allow lowercase and underscore
-            tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyz_'
+            tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyz_23'
         })
             .then(function(result) {
                 // Grab the text
@@ -133,6 +150,9 @@
 
                     // Store the value
                     $('#tool-type-word').val(res);
+
+                    // Store the word
+                    window.ash47_storeWord();
 
                     // Try to submit it
                     window.ash47_doSubmit();
