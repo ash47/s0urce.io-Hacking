@@ -36,6 +36,7 @@
 
     // The fastest we can push answers
     window.ash47_maxSubmitTime = 1000 * 1;
+    window.ash47_bonusDelay = 500;
 
     // Export brain
     window.exportBrain = function() {
@@ -90,9 +91,9 @@
         var timeDifference = now - window.ash47_lastSubmission;
 
         if(timeDifference > window.ash47_maxSubmitTime) {
-            return 0;
+            return window.ash47_bonusDelay;
         } else {
-            return timeDifference + 1;
+            return timeDifference + window.ash47_bonusDelay;
         }
     };
 
